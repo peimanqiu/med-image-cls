@@ -1,0 +1,11 @@
+data/
+experiments/
+results/
+*.npz
+*.pt
+*.pth
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+.vscode/
