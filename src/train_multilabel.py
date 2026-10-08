@@ -1,0 +1,1 @@
+# 多标签训练：sigmoid + BCEWithLogitsLoss，与单标签共用 datasets/models
