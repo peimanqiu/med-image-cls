@@ -1,0 +1,1 @@
+# get_model(name, num_classes, pretrained)：resnet18 / densenet121 / convnext_tiny
