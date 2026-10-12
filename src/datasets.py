@@ -6,7 +6,7 @@ val/test:只做归一化
 import os
 import numpy as np
 from torchvision import transforms
-from medmnist import PneumoniaMNIST
+from medmnist import PneumoniaMNIST, DermaMNIST, ChestMNIST
 
 #ImageNet的均值与标准差 预训练权重使用
 IMAGENET_MEAN = [0.485,0.456,0.406]
@@ -29,14 +29,15 @@ def get_transforms(train=True):
             transforms.Normalize(IMAGENET_MEAN,IMAGENET_STD),
         ])
 
-def get_datasets(flag="pneumoniamnist",size=224):
-    """返回官方划分的train/val/test"""
-    cls_map = {"pneumoniamnist":PneumoniaMNIST}
+def get_datasets(flag="pneumoniamnist", size=224):
+    cls_map = {"pneumoniamnist": PneumoniaMNIST,
+               "dermamnist":     DermaMNIST,
+               "chestmnist":     ChestMNIST}
     cls = cls_map[flag]
-    train_ds = cls(root=DATA_ROOT,split="train",size=size,download=True,
-                   as_rgb=True,transform=get_transforms(train=True))
-    val_ds = cls(root=DATA_ROOT,split="val",size=size,download=False,
-                       as_rgb=True,transform=get_transforms(train=False))
-    test_ds = cls(root=DATA_ROOT,split="test",size=size,download=False,
-                   as_rgb=True,transform=get_transforms(train=False))
-    return train_ds,val_ds,test_ds
+    train_ds = cls(root=DATA_ROOT, split="train", size=size, download=True,
+                   as_rgb=True, transform=get_transforms(train=True))
+    val_ds   = cls(root=DATA_ROOT, split="val",   size=size, download=True,
+                   as_rgb=True, transform=get_transforms(train=False))
+    test_ds  = cls(root=DATA_ROOT, split="test",  size=size, download=True,
+                   as_rgb=True, transform=get_transforms(train=False))
+    return train_ds, val_ds, test_ds
